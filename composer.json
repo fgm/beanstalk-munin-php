@@ -1,0 +1,15 @@
+{
+  "authors": [
+    {
+      "name": "Frédéric G. MARAND",
+      "email": "fgm@osinet.fr"
+    }
+  ],
+  "description": "A set of Munin plugins for Beanstalkd",
+  "license": "Apache-2.0",
+  "minimum-stability": "dev",
+  "name": "osinet/beanstalk-munin",
+  "require": {
+    "pda/pheanstalk": "2.*@dev"
+  }
+}
