@@ -10,6 +10,6 @@
   "minimum-stability": "dev",
   "name": "osinet/beanstalk-munin",
   "require": {
-    "pda/pheanstalk": "2.*@dev"
+    "pda/pheanstalk": "3.*@dev"
   }
 }

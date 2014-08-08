@@ -4,29 +4,37 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a096c76ca63251aa9c1d6052dbea6ac",
+    "hash": "2abd1c9e7cb967a0056920dfe14579f8",
     "packages": [
         {
             "name": "pda/pheanstalk",
-            "version": "v2.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pda/pheanstalk.git",
-                "reference": "ab006cf9330fb5d3799f30a5d9841b85edb40a0f"
+                "reference": "39347b4f195a8bec409e2cc5dbebc86d4f4b1e9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/ab006cf9330fb5d3799f30a5d9841b85edb40a0f",
-                "reference": "ab006cf9330fb5d3799f30a5d9841b85edb40a0f",
+                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/39347b4f195a8bec409e2cc5dbebc86d4f4b1e9c",
+                "reference": "39347b4f195a8bec409e2cc5dbebc86d4f4b1e9c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
             "autoload": {
-                "psr-0": {
-                    "Pheanstalk": "classes/"
+                "psr-4": {
+                    "Pheanstalk\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -46,7 +54,7 @@
             "keywords": [
                 "beanstalkd"
             ],
-            "time": "2013-04-03 09:15:34"
+            "time": "2014-07-26 06:07:48"
         }
     ],
     "packages-dev": [],
