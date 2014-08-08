@@ -1,17 +1,21 @@
 #!/usr/bin/env php
 <?php
+/**
+ * @file
+ * Beanstalkd "command rate" Munin plugin.
+ *
+ * @author: Frédéric G. MARAND <fgm@osinet.fr>
+ *
+ * @copyright (c) 2014 Ouest Systèmes Informatiques (OSInet).
+ *
+ * @license Apache 2.0
+ */
+
 require_once __DIR__ . "/../vendor/autoload.php";
-require_once __DIR__ . "/../lib/lib.php";
 
-use Pheanstalk\Pheanstalk;
-use Pheanstalk\PheanstalkInterface;
+use OSInet\Beanstalkd\Munin\BasePlugin;
 
-class P {
-  /**
-   * @var \Pheanstalk\PheanstalkInterface
-   */
-  public $server;
-
+class P extends BasePlugin {
   public $cmds = [
     ['put', 'cmd-put', 'Put'],
     ['reserve', 'cmd-reserve', 'Reserve'],
@@ -21,17 +25,6 @@ class P {
     ['release', 'cmd-release', 'Release'],
     ['bury', 'cmd-bury', 'Bury']
   ];
-
-  public static function createFromGlobals() {
-    $host = isset($_ENV['HOST']) ? $_ENV['HOST'] : 'localhost';
-    $port = isset($_ENV['PORT']) ? $_ENV['PORT'] : 11300;
-    $server = new Pheanstalk($host, $port);
-    return new static($server);
-  }
-
-  public function __construct(PheanstalkInterface $server) {
-    $this->server = $server;
-  }
 
   /**
    * Implement Munin "config" command.
@@ -66,12 +59,5 @@ class P {
   }
 }
 
-if (is_main($argc, $argv)) {
-  $p = P::createFromGlobals();
-  if ($argc == 2 && $argv[1] === 'config') {
-    echo $p->config();
-  }
-  else{
-    echo $p->data();
-  }
-}
+$p = P::createFromGlobals();
+echo $p->run($argv);

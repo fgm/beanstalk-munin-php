@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2abd1c9e7cb967a0056920dfe14579f8",
+    "hash": "3dd74f4bfe1a30e16319cb0e2a7a4c91",
     "packages": [
         {
             "name": "pda/pheanstalk",

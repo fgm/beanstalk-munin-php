@@ -5,6 +5,11 @@
       "email": "fgm@osinet.fr"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "OSInet\\Beanstalkd\\Munin\\": "src/"
+    }
+  },
   "description": "A set of Munin plugins for Beanstalkd",
   "license": "Apache-2.0",
   "minimum-stability": "dev",
