@@ -11,11 +11,11 @@
  * @license Apache 2.0
  */
 
+namespace OSInet\Beanstalkd\Munin;
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use OSInet\Beanstalkd\Munin\BasePlugin;
-
-class P extends BasePlugin {
+class CommandRatePlugin extends BasePlugin {
   public $cmds = [
     ['put', 'cmd-put', 'Put'],
     ['reserve', 'cmd-reserve', 'Reserve'],
@@ -59,5 +59,5 @@ class P extends BasePlugin {
   }
 }
 
-$p = P::createFromGlobals();
+$p = CommandRatePlugin::createFromGlobals();
 echo $p->run($argv);

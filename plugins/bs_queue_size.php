@@ -11,11 +11,11 @@
  * @license Apache 2.0
  */
 
+namespace OSInet\Beanstalkd\Munin;
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use OSInet\Beanstalkd\Munin\BasePlugin;
-
-class P extends BasePlugin {
+class QueueSizePlugin extends BasePlugin {
 
   public $job_types = [
     ['ready', 'current-jobs-ready', 'Ready'],
@@ -43,7 +43,7 @@ graph_scale no
 EOT;
 
     foreach ($this->job_types as $job_type) {
-      list($name, $machine, $label) = $job_type;
+      list($name, , $label) = $job_type;
       $ret .= sprintf("%s.label %s\n", $name, $label)
         . sprintf("%s.type GAUGE\n", $name)
         . sprintf("%s.min 0\n", $name);
@@ -69,5 +69,5 @@ EOT;
   }
 }
 
-$p = P::createFromGlobals();
+$p = QueueSizePlugin::createFromGlobals();
 echo $p->run($argv);

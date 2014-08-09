@@ -11,11 +11,13 @@
  * @license Apache 2.0
  */
 
+namespace OSInet\Beanstalkd\Munin;
+
+use Pheanstalk\Exception\ServerException;
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use OSInet\Beanstalkd\Munin\BasePlugin;
-
-class P extends BasePlugin {
+class QueueAgePlugin extends BasePlugin {
 
   public $tubes = array();
 
@@ -24,7 +26,7 @@ class P extends BasePlugin {
   }
 
   public static function createFromGlobals() {
-    /** @var \P $instance */
+    /** @var \OSInet\Beanstalkd\Munin\QueueAgePlugin $instance */
     $instance = parent::createFromGlobals();
 
     $tubes = isset($_ENV['TUBES']) ? $_ENV['TUBES'] : 'default';
@@ -63,13 +65,25 @@ EOT;
    */
   public function data() {
     $server = $this->server;
-    $stats = $server->stats();
     $ret = '';
+
     foreach ($this->tubes as $clean => $tube) {
       $server->useTube($tube);
-      $job = $server->peekReady();
-      $data = $server->statsJob($job);
-      $val = empty($job) ? 0 : $data['age'];
+      try {
+        $job = $server->peekReady();
+      }
+      catch (ServerException $e) {
+        $job = NULL;
+      }
+
+      if (!isset($job)) {
+        $val = 0;
+      }
+      else {
+        $data = $server->statsJob($job);
+        $val = $data['age'];
+      }
+
       $ret .= sprintf("%s_jobs.value %d\n", $clean, $val);
     }
 
@@ -77,5 +91,5 @@ EOT;
   }
 }
 
-$p = P::createFromGlobals();
+$p = QueueAgePlugin::createFromGlobals();
 echo $p->run($argv);

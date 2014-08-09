@@ -11,11 +11,11 @@
  * @license Apache 2.0
  */
 
+namespace OSInet\Beanstalkd\Munin;
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use OSInet\Beanstalkd\Munin\BasePlugin;
-
-class P extends BasePlugin {
+class TimeoutsPlugin extends BasePlugin {
   /**
    * Implement Munin "config" command.
    */
@@ -45,6 +45,6 @@ EOT;
   }
 }
 
-$p = P::createFromGlobals();
+$p = TimeoutsPlugin::createFromGlobals();
 echo $p->run($argv);
 
