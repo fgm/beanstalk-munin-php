@@ -1,5 +1,8 @@
 A few simple Munin plugins to monitor beanstalkd.
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/FGM/beanstalk-munin-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/FGM/beanstalk-munin-php/?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/53e5b6d235080d97af000011/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53e5b6d235080d97af000011)
+
 Written in PHP 5.4. Requires Composer + Pheanstalk. APLv2 License.
 
 List tubes to monitor using the TUBES variable in Munin's plugin conf.
