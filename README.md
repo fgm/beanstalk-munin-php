@@ -14,3 +14,7 @@ Original Python version
 -----------------------
 
   https://github.com/urbanairship/beanstalk-munin
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/FGM/beanstalk-munin-php/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
