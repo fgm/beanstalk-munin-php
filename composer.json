@@ -14,8 +14,9 @@
   "license": "Apache-2.0",
   "minimum-stability": "dev",
   "name": "osinet/beanstalk-munin",
+  "prefer-stable": true,
   "require": {
     "php": "> 5.4",
-    "pda/pheanstalk": "3.*@dev"
+    "pda/pheanstalk": "^3.0"
   }
 }
