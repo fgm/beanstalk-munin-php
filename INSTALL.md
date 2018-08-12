@@ -6,7 +6,8 @@
 * Composer (see https://getcomposer.org/download/ )
 * Munin 2.x
   * Ensure Munin itself is already operational by visiting `http://(site)/munin`
-
+  * Some users also report success with Munin 1.4.x, but this is not supported,
+    since Munin 2 has been available since 2011.
 
 ## Deployment on Debian / Ubuntu
 
@@ -20,10 +21,11 @@ $ sudo chown -R $(whoami):www-data .
 $
 ```
 
-Now install the autoloaded dependencies.
+Now install the autoloaded dependencies, without the development dependencies,
+which are only useful to contribute to the plugins development.
 
 ```bash
-$ composer install
+$ composer install --no-dev
 $
 ```
 
@@ -38,7 +40,7 @@ cmd_delete.value 0
 cmd_touch.value 0
 cmd_release.value 0
 cmd_bury.value 0
-$ 
+$
 ```
 
 If your Beanstalkd instance has already served jobs, the counters should be
@@ -65,9 +67,27 @@ $ sudo systemctl restart munin-node
 $
 ```
 
+
+## Extra configuration on other systems
+
+On some systems (e.g. Centos), configuring the identifiers running the plugins
+may be needed. In this case, edit `/etc/munin/plugin-conf.d/munin-node` to add
+this section for the plugins:
+
+```ini
+[bs_*]
+user root
+group root
+```
+
+
+## Troubleshooting
+
+### Talking to `munin-node`
+
 You can now check the plugins by telnetting to `munin-node`. Note that, unlike
 most such servers, the `munin-node` daemon offers no telnet prompt: just go
-ahead and type commands `list`, `config bs_connections.php` or 
+ahead and type commands `list`, `config bs_connections.php` or
 `fetch bs_connections.php`. The end of result lists is shown by a single dot.
 
 _Note_: In the listing below, lines have been folded with a `\ ` for readability, which
@@ -98,7 +118,7 @@ fetch bs_connections.php
 connections.value 1
 .
 quit
-$ 
+$
 ```
 
 The actual list of plugins and the host name and IP on your system will vary,
@@ -107,3 +127,19 @@ the important points to check are:
 * the fact that the `bs_*.php` plugins are listed,
 * their configuration is reported as above (values may differ),
 * fetching their values works as above (values may differ).
+
+
+### Changing the plugins shebang to adapt to the PHP distribution
+
+Some non-default PHP deployments use the PHP CGI version when running the `php`
+command, and will only use the PHP CLI version when called as `php-cli`. This is
+know to happen on some cPanel/whm configurations, frequent on shared hosting.
+This causes a problem as the CGI version emits headers by default (PHP signature
+and Content-Type), which `munin-node` does not expect.
+
+In this case, edit the shebang line on the `plugins/bs_*.php` files, replacing
+`php` by `php-cli`.
+
+On other systems (e.g. macOS), it is possible to pass arguments in the shebang,
+so changing `php` to `php -q` will also remove the headers if they are present,
+but this does *not* work on most Linux versions.

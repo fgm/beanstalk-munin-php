@@ -10,6 +10,9 @@
       "OSInet\\Beanstalkd\\Munin\\": "src/"
     }
   },
+  "config": {
+    "sort-packages": true
+  },
   "description": "A set of Munin plugins for Beanstalkd",
   "license": "Apache-2.0",
   "minimum-stability": "dev",
@@ -18,5 +21,21 @@
   "require": {
     "php": "> 5.4",
     "pda/pheanstalk": "^3.0"
-  }
+  },
+  "require-dev": {
+    "phpmd/phpmd": "^2.6",
+    "sebastian/phpcpd": "^4",
+    "squizlabs/php_codesniffer": "^3"
+  },
+  "scripts": {
+    "check": [
+      "@phpcs",
+      "@phpmd",
+      "@phpcpd"
+    ],
+    "phpcpd": "vendor/bin/phpcpd --fuzzy plugins src",
+    "phpcs": "vendor/bin/phpcs --standard=PSR1,PSR2,PSR12,Zend plugins src",
+    "phpmd": "vendor/bin/phpmd plugins,src text cleancode,codesize,controversial,design,naming,unusedcode"
+  },
+  "type": "project"
 }
