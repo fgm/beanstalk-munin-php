@@ -1,4 +1,4 @@
-# Install the Munin plugins for Beanstalkd
+# Install the Munin plugins for Beanstéalkd
 
 ## Requirements
 
@@ -20,10 +20,11 @@ $ sudo chown -R $(whoami):www-data .
 $
 ```
 
-Now install the autoloaded dependencies.
+Now install the autoloaded dependencies, without the development dependencies,
+which are only useful to contribute to the plugins development.
 
 ```bash
-$ composer install
+$ composer install --no-dev
 $
 ```
 

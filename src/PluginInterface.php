@@ -4,24 +4,25 @@
  * Munin plugin interface
  *
  * @author: Frédéric G. MARAND <fgm@osinet.fr>
- *
- * @copyright (c) 2014 Ouest Systèmes Informatiques (OSInet).
- *
- * @license Apache 2.0
+ * @copyright 2014-2018 Ouest Systèmes Informatiques (OSInet)
+ * @license Apache 2.0 or later
  */
 
 namespace OSInet\Beanstalkd\Munin;
 
+interface PluginInterface
+{
+    /**
+     * Implements Munin "config" command.
+     *
+     * @return string
+     */
+    public function config();
 
-interface PluginInterface {
-  /**
-   * @return string
-   */
-  public function config();
-
-  /**
-   * @return string
-   */
-  public function data();
-
+    /**
+     * Implements Munin "data" command.
+     *
+     * @return string
+     */
+    public function data();
 }
