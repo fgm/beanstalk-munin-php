@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="bs_connections" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/plugins/bs_connections.php">
+    <method v="2" />
+  </configuration>
+</component>

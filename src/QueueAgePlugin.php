@@ -5,29 +5,28 @@
  * Munin plugin for Beanstalkd "age of waiting jobs in tubes" monitoring
  *
  * @author: Frédéric G. MARAND <fgm@osinet.fr>
- * @copyright (c) 2014-2018 Ouest Systèmes Informatiques (OSInet)
+ * @copyright (c) 2014-2020 Ouest Systèmes Informatiques (OSInet)
  * @license Apache License 2.0 or later
  */
 
+declare(strict_types=1);
+
 namespace OSInet\Beanstalkd\Munin;
 
-use Pheanstalk\Exception\ServerException;
+use Pheanstalk\Exception;
+use Pheanstalk\Exception\CommandException;
 
 class QueueAgePlugin extends BasePlugin
 {
-    public $tubes = [];
 
-    public static function cleanTube($tube)
-    {
-        return str_replace('.', '_', $tube);
-    }
+    public array $tubes = [];
 
-    public static function createFromGlobals()
+    public static function createFromGlobals(): QueueAgePlugin
     {
         /** @var \OSInet\Beanstalkd\Munin\QueueAgePlugin $instance */
         $instance = parent::createFromGlobals();
 
-        $tubes = getenv('TUBES') ?: 'default';
+        $tubes = getenv('BEANSTALKD_TUBES') ?: 'default';
         $tubesArray = explode(' ', $tubes);
 
         foreach ($tubesArray as $tube) {
@@ -37,19 +36,24 @@ class QueueAgePlugin extends BasePlugin
         return $instance;
     }
 
+    public static function cleanTube($tube)
+    {
+        return str_replace('.', '_', $tube);
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function config()
+    public function config(): string
     {
-        $ret = <<<'EOT'
+        $ret = <<<'CONFIG'
 graph_title Job Age
 graph_vlabel Max Age
 graph_category Beanstalk
 graph_args --lower-limit 0
 graph_scale no
 
-EOT;
+CONFIG;
 
         foreach (array_keys($this->tubes) as $clean) {
             $ret .= sprintf("%s_jobs.label %s\n", $clean, $clean);
@@ -62,7 +66,7 @@ EOT;
     /**
      * {@inheritdoc}
      */
-    public function data()
+    public function data(): string
     {
         $server = $this->server;
         $ret = '';
@@ -71,7 +75,7 @@ EOT;
             $server->useTube($tube);
             try {
                 $job = $server->peekReady();
-            } catch (ServerException $e) {
+            } catch (\Exception $exc) {
                 $job = null;
             }
 

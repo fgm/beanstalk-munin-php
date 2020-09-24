@@ -5,20 +5,23 @@
  * Munin plugin for Beanstalkd "jobs rate" monitoring
  *
  * @author: Frédéric G. MARAND <fgm@osinet.fr>
- * @copyright (c) 2014-2018 Ouest Systèmes Informatiques (OSInet)
+ * @copyright (c) 2014-2020 Ouest Systèmes Informatiques (OSInet)
  * @license Apache License 2.0 or later
  */
+
+declare(strict_types=1);
 
 namespace OSInet\Beanstalkd\Munin;
 
 class JobsRatePlugin extends BasePlugin
 {
+
     /**
      * {@inheritdoc}
      */
-    public function config()
+    public function config(): string
     {
-        $ret = <<<'EOT'
+        return <<<'CONFIG'
 graph_title Job Rate
 graph_vlabel Jobs per ${graph_period}
 graph_category Beanstalk
@@ -27,18 +30,16 @@ graph_scale no
 queue_jobs.label Jobs
 queue_jobs.type DERIVE
 queue_jobs.min 0
-EOT;
 
-        return $ret;
+CONFIG;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function data()
+    public function data(): string
     {
         $stats = $this->server->stats();
-        $ret = sprintf("queue_jobs.value %d\n", $stats['total-jobs']);
-        return $ret;
+        return sprintf("queue_jobs.value %d\n", $stats['total-jobs']);
     }
 }

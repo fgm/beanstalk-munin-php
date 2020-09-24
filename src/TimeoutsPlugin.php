@@ -5,20 +5,23 @@
  * Munin plugin for Beanstalkd timeouts monitoring
  *
  * @author: Frédéric G. MARAND <fgm@osinet.fr>
- * @copyright (c) 2014-2018 Ouest Systèmes Informatiques (OSInet)
+ * @copyright (c) 2014-2020 Ouest Systèmes Informatiques (OSInet)
  * @license Apache License 2.0 or later
  */
+
+declare(strict_types=1);
 
 namespace OSInet\Beanstalkd\Munin;
 
 class TimeoutsPlugin extends BasePlugin
 {
+
     /**
      * {@inheritdoc}
      */
-    public function config()
+    public function config(): string
     {
-        $ret = <<<'EOT'
+        return <<<'CONFIG'
 graph_title Job Timeouts
 graph_vlabel Timeouts per ${graph_period}
 graph_category Beanstalk
@@ -28,18 +31,15 @@ timeouts.label Timeouts
 timeouts.type DERIVE
 timeouts.min 0
 
-EOT;
-
-        return $ret;
+CONFIG;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function data()
+    public function data(): string
     {
         $stats = $this->server->stats();
-        $ret = sprintf("timeouts.value %d\n", $stats['job-timeouts']);
-        return $ret;
+        return sprintf("timeouts.value %d\n", $stats['job-timeouts']);
     }
 }

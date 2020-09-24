@@ -5,20 +5,23 @@
  * Munin plugin for Beanstalkd connections monitoring
  *
  * @author: Frédéric G. MARAND <fgm@osinet.fr>
- * @copyright (c) 2014-2018 Ouest Systèmes Informatiques (OSInet)
+ * @copyright (c) 2014-2020 Ouest Systèmes Informatiques (OSInet)
  * @license Apache License 2.0 or later
  */
+
+declare(strict_types=1);
 
 namespace OSInet\Beanstalkd\Munin;
 
 class ConnectionsPlugin extends BasePlugin
 {
+
     /**
      * {@inheritdoc}
      */
-    public function config()
+    public function config(): string
     {
-        $ret = <<<EOT
+        return <<<CONFIG
 graph_title Open connections
 graph_vlabel Connections
 graph_category Beanstalk
@@ -28,18 +31,15 @@ connections.label Connections
 connections.type GAUGE
 connections.min 0
 
-EOT;
-
-        return $ret;
+CONFIG;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function data()
+    public function data(): string
     {
         $stats = $this->server->stats();
-        $ret = sprintf("connections.value %d\n", $stats['current-connections']);
-        return $ret;
+        return sprintf("connections.value %d\n", $stats['current-connections']);
     }
 }

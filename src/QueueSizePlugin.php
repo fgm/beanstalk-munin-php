@@ -5,15 +5,18 @@
  * Munin plugin for Beanstalkd queue size monitoring
  *
  * @author: Frédéric G. MARAND <fgm@osinet.fr>
- * @copyright (c) 2014-2018 Ouest Systèmes Informatiques (OSInet)
+ * @copyright (c) 2014-2020 Ouest Systèmes Informatiques (OSInet)
  * @license Apache License 2.0 or later
  */
+
+declare(strict_types=1);
 
 namespace OSInet\Beanstalkd\Munin;
 
 class QueueSizePlugin extends BasePlugin
 {
-    public $jobTypes = [
+
+    public array $jobTypes = [
       ['ready', 'current-jobs-ready', 'Ready'],
       ['urgent', 'current-jobs-urgent', 'Urgent'],
       ['reserved', 'current-jobs-reserved', 'Reserved'],
@@ -29,19 +32,19 @@ class QueueSizePlugin extends BasePlugin
     /**
      * {@inheritdoc}
      */
-    public function config()
+    public function config(): string
     {
-        $ret = <<<'EOT'
+        $ret = <<<'CONFIG'
 graph_title Queue Size
 graph_vlabel Number of jobs in the queue
 graph_category Beanstalk
 graph_args --lower-limit 0
 graph_scale no
 
-EOT;
+CONFIG;
 
         foreach ($this->jobTypes as $jobType) {
-            list($name, , $label) = $jobType;
+            [$name, , $label] = $jobType;
             $ret .= sprintf("%s.label %s\n", $name, $label)
               . sprintf("%s.type GAUGE\n", $name)
               . sprintf("%s.min 0\n", $name);
@@ -52,15 +55,13 @@ EOT;
     /**
      * {@inheritdoc}
      */
-    public function data()
+    public function data(): string
     {
-        //      print '%s.value %d' % (j[0], stats[j[1]])
-        //
         $server = $this->server;
         $stats = $server->stats();
         $ret = '';
         foreach ($this->jobTypes as $jobType) {
-            list($name, $machine,) = $jobType;
+            [$name, $machine,] = $jobType;
             $ret .= sprintf("%s.value %d\n", $name, $stats[$machine]);
         }
 

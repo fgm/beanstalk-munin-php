@@ -1,0 +1,14 @@
+servers = []
+listen = "127.0.0.1:4000"
+version = 2.2
+
+[openpage]
+enabled = true
+
+[auth]
+enabled = false
+password = "somepass"
+username = "someuser"
+
+[sample]
+storage = "{}"

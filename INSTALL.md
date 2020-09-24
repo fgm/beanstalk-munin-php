@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* PHP > 5.4, including 7.0 to 7.2
+* PHP >= 7.2, 8.0 is not validated yet but should work.
 * Composer (see https://getcomposer.org/download/ )
 * Munin 2.x
   * Ensure Munin itself is already operational by visiting `http://(site)/munin`

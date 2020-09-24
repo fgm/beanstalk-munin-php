@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All plugins with config" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/plugins/bs_timeouts.php" scriptParameters="config">
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_cmd_rate" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_cmd_rate config" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_connections" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_connections config" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_jobs_rate" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_jobs_rate config" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_queue_age" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_queue_age config" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_queue_size" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_queue_size config" run_configuration_type="PhpLocalRunConfigurationType" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="bs_timeouts" run_configuration_type="PhpLocalRunConfigurationType" />
+    </method>
+  </configuration>
+</component>
